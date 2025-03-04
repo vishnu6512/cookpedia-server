@@ -14,7 +14,8 @@ exports.addUserController= async (req,res)=>{
             const newUser=new users({
                 username,
                 email,
-                password:encryptedPassword
+                password:encryptedPassword,
+                profilePic:""
             })
             await newUser.save()
             res.status(200).json(newUser)
@@ -47,3 +48,31 @@ exports.loginController= async (req,res)=>{
         res.status(500).json(err)
     }
 }
+
+//edit user
+exports.editUserController= async (req,res)=>{
+    console.log("inside editUserController");
+    const {profilePic}=req.body
+    const userId= req.userId
+    try{
+        const existingUser=await users.findById({_id:userId})
+        existingUser.profilePic=profilePic
+        await existingUser.save()
+        res.status(200).json(existingUser)
+    } catch(err){
+        res.status(401).json(err)
+    }
+    
+}
+
+//to get all user
+exports.getAllUserController= async (req,res)=>{
+    console.log("inside getAllUserController");
+    try{
+        const allUsers= await users.find({role:"user"})
+        res.status(200).json(allUsers)
+    } catch(err){
+        res.status(401).json(err)
+    }
+}
+
