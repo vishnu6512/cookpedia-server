@@ -60,4 +60,6 @@ router.get("/testimonial/:id/update",jwtMiddleware,testimonialController.updateF
 //get all appproved testiony
 router.get("/approved-testimonials",testimonialController.getAllApprovedTestimonyController)
 
+//add recipe
+router.post("/recipe/add",jwtMiddleware,recipeController.addRecipeController)
 module.exports = router
