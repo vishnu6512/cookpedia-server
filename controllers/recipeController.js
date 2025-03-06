@@ -70,3 +70,32 @@ exports.addRecipeController = async (req,res)=>{
         res.status(401).json(err)
     }
 }
+
+//editRecipe
+exports.editRecipeController = async (req,res)=>{
+    const {id} = req.params
+    try{
+        const updateRecipe = await recipes.findByIdAndUpdate(
+            id,
+            req.body,
+            {new: true}
+        )
+        if(!updateRecipe){
+            return res.status(404).json({message: "Recipe not found"})
+        }
+        res.status(200).json(updateRecipe)
+    }catch(err){
+        res.status(400).json({message: err.message})
+    }
+}
+
+//deleteRecipe
+exports.deleteRecipeController = async (req,res)=>{
+    const {id} = req.params
+    try{
+        const deleteRecipe = await recipes.findByIdAndDelete(id)
+        res.status(200).json(deleteRecipe)
+    }catch(err){
+        res.status(400).json({message: err.message})
+    }
+}

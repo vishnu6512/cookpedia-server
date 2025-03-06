@@ -62,4 +62,11 @@ router.get("/approved-testimonials",testimonialController.getAllApprovedTestimon
 
 //add recipe
 router.post("/recipe/add",jwtMiddleware,recipeController.addRecipeController)
+
+//edit recipe
+router.put("/recipe/:id/edit",jwtMiddleware,recipeController.editRecipeController)
+
+//delete recipe
+router.delete("/recipe/:id/delete",jwtMiddleware,recipeController.deleteRecipeController)
+
 module.exports = router
